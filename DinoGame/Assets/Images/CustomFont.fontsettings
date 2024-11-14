@@ -32,7 +32,7 @@ Font:
       y: 0
       width: 18
       height: -27
-    advance: 15
+    advance: 18
     flipped: 0
   - serializedVersion: 2
     index: 49
@@ -208,7 +208,7 @@ Font:
       y: 0
       width: 18
       height: -27
-    advance: 18
+    advance: 30
     flipped: 0
   m_KerningValues: []
   m_PixelScale: 0.1

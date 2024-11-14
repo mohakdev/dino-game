@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class SpawnCactus : MonoBehaviour
 {
-    [SerializeField] Sprite[] cactuses;
-    [SerializeField] GameObject cactusPrefab;
+    [SerializeField] GameObject[] cactuses;
     [SerializeField] float delayTime = 1f;
 
     void Start()
@@ -16,12 +15,11 @@ public class SpawnCactus : MonoBehaviour
     void MakeNewCactus()
     {
         if (!GameController.started) { return; }
-        GameObject cactus = Instantiate(cactusPrefab,transform.position,Quaternion.identity);
-        cactus.GetComponent<SpriteRenderer>().sprite = SelectRandomCactus();
+        GameObject cactus = Instantiate(SelectRandomCactus(), transform.position,Quaternion.identity);
         cactus.transform.SetParent(GroundManager.currentGround.transform, true);
     }
 
-    Sprite SelectRandomCactus()
+    GameObject SelectRandomCactus()
     {
         int random = Random.Range(0, cactuses.Length);
         return cactuses[random];

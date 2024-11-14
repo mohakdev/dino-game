@@ -8,6 +8,7 @@ public class CactusScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<HighscoreScript>().UpdateHighScore();
             GameObject.FindGameObjectWithTag("GameOver").transform.localScale = Vector3.one;
             Time.timeScale = 0;
             GameController.started = false;

@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     {
         if(!started) 
         { 
-            if (Input.GetKeyDown(KeyCode.Space)) 
+            if (Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0) 
             {
                 print("Started");
                 //Intro bar slide
