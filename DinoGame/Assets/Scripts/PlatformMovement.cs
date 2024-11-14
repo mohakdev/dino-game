@@ -5,26 +5,18 @@ using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
 {
-    bool hasSpawnedNewGround = false;
     [SerializeField] float speed;
-    [SerializeField] Vector2 spawnPos;
+    [SerializeField] float deletePos;
 
-    // Update is called once per frame
+    public bool hasSpawnedNewGround = false;
     void Update()
     {
         if(!GameController.started) { return; }
         transform.position += speed * Time.deltaTime * Vector3.left;
-        if(transform.position.x < -11.5f && !hasSpawnedNewGround)
+        //Condition to delete gameobject
+        if (transform.position.x < deletePos)
         {
-            hasSpawnedNewGround = true;
-            GameObject newGround = Instantiate(gameObject);
-            newGround.name = "NewGround";
-            newGround.transform.position = spawnPos;
-            Invoke(nameof(SelfDestruct), 5f);
+            Destroy(gameObject);
         }
-    }
-    void SelfDestruct()
-    {
-        Destroy(gameObject);
     }
 }

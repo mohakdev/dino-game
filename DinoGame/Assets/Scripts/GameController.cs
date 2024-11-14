@@ -14,8 +14,9 @@ public class GameController : MonoBehaviour
         { 
             if (Input.GetKeyDown(KeyCode.Space)) 
             {
+                print("Started");
                 //Intro bar slide
-                LeanTween.moveX(introBar,22f, 0.5f).setEaseInQuad().setOnComplete(() => {
+                LeanTween.moveX(introBar,4.3f, 0.5f).setEaseInQuad().setOnComplete(() => {
                     Destroy(introBar);
                 });
                 //Start Player Anim

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - GroundCollider
+  - Cactus
+  - GameOver
   layers:
   - Default
   - TransparentFX

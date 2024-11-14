@@ -8,10 +8,11 @@ public class JumpScript : MonoBehaviour
     [SerializeField] int jumpPower;
     bool onGround = true;
     Rigidbody2D rb;
-
+    Animator animator;
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();    
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
@@ -29,6 +30,8 @@ public class JumpScript : MonoBehaviour
         if(!onGround) { return; }
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         onGround = false;
+        //Animation Logic
+        animator.SetTrigger("idle");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -36,6 +39,8 @@ public class JumpScript : MonoBehaviour
         if (collision.gameObject.CompareTag("GroundCollider"))
         {
             onGround = true;
-        }    
+            //Animation Logic
+            if(GameController.started) { animator.SetTrigger("startRun"); }
+        }
     }
 }
