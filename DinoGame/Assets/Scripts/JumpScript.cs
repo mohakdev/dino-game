@@ -6,13 +6,17 @@ using UnityEngine;
 public class JumpScript : MonoBehaviour
 {
     [SerializeField] int jumpPower;
+    [SerializeField] AudioClip jumpSound;
     bool onGround = true;
     Rigidbody2D rb;
     Animator animator;
+    AudioSource audioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -30,6 +34,7 @@ public class JumpScript : MonoBehaviour
         if(!onGround) { return; }
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         onGround = false;
+        audioSource.PlayOneShot(jumpSound);
         //Animation Logic
         animator.SetTrigger("idle");
     }

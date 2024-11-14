@@ -11,7 +11,7 @@ public class HighscoreScript : MonoBehaviour
 
     int highscore;
     public float score;
-    bool themeChangedRecently = false;
+    public int checkpoint = 700;
 
     void Start()
     {
@@ -25,30 +25,34 @@ public class HighscoreScript : MonoBehaviour
         if(!GameController.started) { return; }
         score += Time.deltaTime * 10;
         scoreText.text = ((int)score).ToString("00000");
-        if(score >= 700 && !themeChangedRecently)
+
+        if(score >= checkpoint)
         {
-            ChangeTheme(false);
-        }
-        else if(score >= 1400 && !themeChangedRecently)
-        {
-            ChangeTheme(true);
+            if(checkpoint % 1400 == 0)
+            {
+                ChangeThemeToDay();
+            }
+            else { ChangeThemeToNight(); }
+            checkpoint += 700;
         }
     }
-    public void ChangeTheme(bool nightMode)
+    public void ChangeThemeToNight()
     {
         float startVal = 0f;
         float endVal = 1f;
-        if(nightMode) { startVal = 1f; endVal = 0f; }
-        themeChangedRecently = true;
         LeanTween.value(gameObject, startVal, endVal, 1f).setOnUpdate((float thresholdValue) =>
         {
             mat.SetFloat("_Threshold", thresholdValue);
         });
-        Invoke(nameof(ResetThemeChangeBool), 10f);
     }
-    void ResetThemeChangeBool()
+    public void ChangeThemeToDay()
     {
-        themeChangedRecently = false;
+        float startVal = 1f;
+        float endVal = 0f;
+        LeanTween.value(gameObject, startVal, endVal, 1f).setOnUpdate((float thresholdValue) =>
+        {
+            mat.SetFloat("_Threshold", thresholdValue);
+        });
     }
 
     public void UpdateHighScore()
