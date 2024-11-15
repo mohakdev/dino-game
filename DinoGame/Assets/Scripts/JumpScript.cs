@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class JumpScript : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class JumpScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) { Jump(); }
+        if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) { Jump(); }
     }
 
     void Jump()

@@ -15,6 +15,10 @@ public class SpawnCactus : MonoBehaviour
     {
         if (!GameController.started || GameController.paused || GameController.gameOver) { return; }
         GameObject cactus = Instantiate(SelectRandomCactus(), transform.position, Quaternion.identity);
+        if (cactus.name == "Cactus 9(Clone)" || cactus.name == "Cactus 10(Clone)" || cactus.name == "Cactus 11(Clone)")
+        {
+            cactus.transform.position += Vector3.up * 0.1f;
+        }
         cactus.transform.SetParent(GroundManager.currentGround.transform, true);
     }
 

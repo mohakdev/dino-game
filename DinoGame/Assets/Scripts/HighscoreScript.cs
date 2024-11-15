@@ -40,24 +40,10 @@ public class HighscoreScript : MonoBehaviour
     {
         if (score >= checkpoint)
         {
-            if (checkpoint % 700 == 0)
-            {
-                if (playerSelectedTheme == DayNightTheme.Day)
-                {
-                    ChangeDayNightTheme(DayNightTheme.Night);
-                }
-                else { ChangeDayNightTheme(DayNightTheme.Day); }
-                checkpoint += 200;
-            }
-            else
-            {
-                if (playerSelectedTheme == DayNightTheme.Day)
-                {
-                    ChangeDayNightTheme(DayNightTheme.Day);
-                }
-                else { ChangeDayNightTheme(DayNightTheme.Night); }
-                checkpoint += 700;
-            }
+            print("running");
+            ToggleTheme();
+            if(checkpoint % 700 == 0) { checkpoint += 200; return; }
+            checkpoint += 500;
         }
     }
 }
