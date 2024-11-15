@@ -21,21 +21,15 @@ public class JumpScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.tapCount == 1) { Jump(); } 
-        }
-        else if (Input.GetKeyDown(KeyCode.Space)) { Jump(); }
+        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) { Jump(); }
     }
 
     void Jump()
     {
         if(!onGround) { return; }
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-        onGround = false;
         audioSource.PlayOneShot(jumpSound);
-        //Animation Logic
+        onGround = false;
         animator.SetTrigger("idle");
     }
 

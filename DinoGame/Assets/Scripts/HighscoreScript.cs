@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DayNightScript;
 
 public class HighscoreScript : MonoBehaviour
 {
-    [SerializeField] Material mat;
     [SerializeField] Text scoreText;
     [SerializeField] Text highScoreText;
 
@@ -15,44 +15,17 @@ public class HighscoreScript : MonoBehaviour
 
     void Start()
     {
-        mat.SetFloat("_Threshold", 0f);
         highscore = PlayerPrefs.GetInt("hs", 0);
         if(highscore != 0) { highScoreText.text = "HI  " + highscore.ToString("00000"); }
     }
 
     void Update()
     {
-        if(!GameController.started) { return; }
+        if(!GameController.started || GameController.paused || GameController.gameOver) { return; }
         score += Time.deltaTime * 10;
         scoreText.text = ((int)score).ToString("00000");
 
-        if(score >= checkpoint)
-        {
-            if(checkpoint % 1400 == 0)
-            {
-                ChangeThemeToDay();
-            }
-            else { ChangeThemeToNight(); }
-            checkpoint += 700;
-        }
-    }
-    public void ChangeThemeToNight()
-    {
-        float startVal = 0f;
-        float endVal = 1f;
-        LeanTween.value(gameObject, startVal, endVal, 1f).setOnUpdate((float thresholdValue) =>
-        {
-            mat.SetFloat("_Threshold", thresholdValue);
-        });
-    }
-    public void ChangeThemeToDay()
-    {
-        float startVal = 1f;
-        float endVal = 0f;
-        LeanTween.value(gameObject, startVal, endVal, 1f).setOnUpdate((float thresholdValue) =>
-        {
-            mat.SetFloat("_Threshold", thresholdValue);
-        });
+        HandleDayNightLogic();
     }
 
     public void UpdateHighScore()
@@ -60,6 +33,31 @@ public class HighscoreScript : MonoBehaviour
         if(score > highscore)
         {
             PlayerPrefs.SetInt("hs", (int)score);
+        }
+    }
+
+    public void HandleDayNightLogic()
+    {
+        if (score >= checkpoint)
+        {
+            if (checkpoint % 700 == 0)
+            {
+                if (playerSelectedTheme == DayNightTheme.Day)
+                {
+                    ChangeDayNightTheme(DayNightTheme.Night);
+                }
+                else { ChangeDayNightTheme(DayNightTheme.Day); }
+                checkpoint += 200;
+            }
+            else
+            {
+                if (playerSelectedTheme == DayNightTheme.Day)
+                {
+                    ChangeDayNightTheme(DayNightTheme.Day);
+                }
+                else { ChangeDayNightTheme(DayNightTheme.Night); }
+                checkpoint += 700;
+            }
         }
     }
 }

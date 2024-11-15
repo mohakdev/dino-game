@@ -10,7 +10,7 @@ public class CloudScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x < endPos)
+        if (transform.position.x < endPos)
         {
             transform.position = new Vector2(startPos,transform.position.y);
         }

@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GroundManager : MonoBehaviour
 {
+    [SerializeField] float maxSpeed = 7f;
+    [SerializeField] float startSpeed = 2f;
+    public static float speed;
     [SerializeField] GameObject groundPrefab;
     [SerializeField] Vector2 triggerNewGroundPos;
     [SerializeField] Vector2 spawnPos;
@@ -11,7 +15,8 @@ public class GroundManager : MonoBehaviour
     public static PlatformMovement currentGround;
     void Start()
     {
-        currentGround = GameObject.Find("Ground").GetComponent<PlatformMovement>();    
+        currentGround = GameObject.Find("Ground").GetComponent<PlatformMovement>();
+        speed = startSpeed;
     }
     void Update()
     {
@@ -23,6 +28,8 @@ public class GroundManager : MonoBehaviour
             newGround.name = "NewGround";
             newGround.transform.position = spawnPos;
             currentGround = newGround.GetComponent<PlatformMovement>();
+            if(speed <= maxSpeed) { speed += 0.05f; }
+            print("speed " + speed);
         }
     }
 }

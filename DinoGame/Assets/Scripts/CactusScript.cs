@@ -13,8 +13,8 @@ public class CactusScript : MonoBehaviour
             collision.gameObject.GetComponent<Animator>().SetTrigger("dead");
             GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioSource>().PlayOneShot(dieSound);
             GameObject.FindGameObjectWithTag("GameOver").transform.localScale = Vector3.one;
-            Time.timeScale = 0;
-            GameController.started = false;
+            GameController.EndGame();
         }
+
     }
 }

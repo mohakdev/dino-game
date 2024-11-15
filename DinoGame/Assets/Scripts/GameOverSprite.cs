@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DayNightSprite : MonoBehaviour
+public class GameOverSprite : MonoBehaviour
 {
     Image render;
     [SerializeField] Sprite daySprite;
