@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     public static bool paused = false;
     public static bool gameOver = false;
 
+    public static GameObject lastHitCactus = null;
+
     void Start()
     {
         if (!firstTime)
@@ -60,6 +62,11 @@ public class GameController : MonoBehaviour
     {
         gameOver = true;
         Time.timeScale = 0;
+    }
+    public static void ContinueAfterAd()
+    {
+        gameOver = false;
+        GameObject.FindGameObjectWithTag("GameOver").transform.localScale = Vector3.zero;
     }
     public static void RestartGame()
     {

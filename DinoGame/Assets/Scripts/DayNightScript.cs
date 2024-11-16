@@ -12,10 +12,13 @@ public class DayNightScript : MonoBehaviour
     void Start()
     {
         material = gameObject.GetComponent<SpriteRenderer>().sharedMaterial;
-        material.SetFloat("_Threshold", 0f);
         gameTitle = GameObject.FindGameObjectWithTag("GameTitle").GetComponent<Text>();
         go = gameObject; //for leantween transition
-        currentTheme = DayNightTheme.Day;
+        if(GameController.firstTime) 
+        { 
+            material.SetFloat("_Threshold", 0f);
+            currentTheme = DayNightTheme.Day; 
+        }
     }
     public enum DayNightTheme
     {
