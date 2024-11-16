@@ -9,13 +9,27 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] GameObject introBar;
     [SerializeField] Text pauseCountText;
+
+    public static bool firstTime = true;
     public static bool started = false;
     public static bool paused = false;
     public static bool gameOver = false;
 
+    void Start()
+    {
+        if (!firstTime)
+        {
+            started = true;
+            Destroy(introBar);
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Animator>().SetTrigger("startRun");
+        }    
+    }
+
     public void TogglePause()
     {
-        if(!paused) { PauseGame(); }
+        if (!started || gameOver) { return; }
+        if (!paused) { PauseGame(); }
         else { ResumeGame(); }
     }
 
@@ -61,7 +75,7 @@ public class GameController : MonoBehaviour
     {
         if(!started) 
         { 
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) 
+            if (Input.GetMouseButtonDown(0) && !JumpScript.IsPointerOverUIObject()) 
             {
                 print("Started");
                 //Intro bar slide
@@ -74,7 +88,8 @@ public class GameController : MonoBehaviour
                 //Start Player Anim
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<Animator>().SetTrigger("startRun");
-                started = true; 
+                started = true;
+                firstTime = false;
             } 
         }
     }

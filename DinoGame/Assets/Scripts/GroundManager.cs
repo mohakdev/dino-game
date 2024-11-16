@@ -20,6 +20,7 @@ public class GroundManager : MonoBehaviour
     }
     void Update()
     {
+        if(speed <= maxSpeed) { speed += 0.1f * Time.deltaTime; }
         //Spawn new grounds
         if (currentGround.transform.position.x < triggerNewGroundPos.x && !currentGround.hasSpawnedNewGround)
         {
@@ -28,8 +29,6 @@ public class GroundManager : MonoBehaviour
             newGround.name = "NewGround";
             newGround.transform.position = spawnPos;
             currentGround = newGround.GetComponent<PlatformMovement>();
-            if(speed <= maxSpeed) { speed += 0.05f; }
-            print("speed " + speed);
         }
     }
 }

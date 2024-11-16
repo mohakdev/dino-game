@@ -22,7 +22,28 @@ public class JumpScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) { Jump(); }
+        if(Input.GetMouseButtonDown(0) && !IsPointerOverUIObject()) { Jump(); }
+    }
+
+    public static bool IsPointerOverUIObject()
+    {
+        // Check if there are any touches
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+            {
+                position = touch.position
+            };
+
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerEventData, results);
+
+            return results.Count > 0; // True if the pointer is over a UI element
+        }
+
+        // For desktop testing
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
     void Jump()

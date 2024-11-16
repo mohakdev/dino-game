@@ -8,6 +8,7 @@ TagManager:
   - Cactus
   - GameOver
   - Audio
+  - GameTitle
   layers:
   - Default
   - TransparentFX
